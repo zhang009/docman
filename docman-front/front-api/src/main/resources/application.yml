@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: docman-front-api
+  profiles:
+    active: @spring.profiles.active@
+  jackson:
+    default-property-inclusion: non_null
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        prefer-ip-address: true
+        instance-id: ${spring.application.name}(${spring.cloud.client.ip-address}):${server.port}
+        health-check-interval: 10s
+server:
+  port: 8888
+  servlet:
+    session:
+      timeout: 7d
+    encoding:
+      enabled: true
+      charset: UTF-8
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 500 # 指定Feign客户端连接提供者的超时时限   取决于网络环境
+        read-timeout: 500 # 指定Feign客户端从请求到获取到提供者给出的响应的超时时限  取决于业务逻辑运算时间
+management:
+  endpoint:
+    health:
+      show-details: always
+app:
+  permission-app-code: front
+  static-resource-suffix:
+    - .js
+    - .css
+    - .html
+    - .png
+    - .gif
+    - .jpg
+    - .ttf
+    - .otf
+    - .eot
+    - .woff
+    - .svg
+  exclude-login-path-equals:
+    - /
+    - /other/logoutURL
+  exclude-login-path-start-with:
+    - /v2/
+    - /swagger-
+    - /webjars
+    - /error
+  self-domain: front-api.xf-docman.com
+  exclude-permission-path-equals:
+    - /other/logoutURL
+    - /other/currentPermissions

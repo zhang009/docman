@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: docman-man-api
+  profiles:
+    active: @spring.profiles.active@
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        prefer-ip-address: true
+        instance-id: ${spring.application.name}(${spring.cloud.client.ip-address}):${server.port}
+        hostname: ${spring.application.name}
+        service-name: ${spring.application.name}
+        enabled: true
+  jackson:
+    default-property-inclusion: non_null
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 7d
+    encoding:
+      enabled: true
+      charset: UTF-8
+mybatis-plus:
+  mapper-locations: classpath*:mybatis/mapper/**/*.xml
+  type-aliases-package: com.xf.docman.man.entity
+  typeEnumsPackage: com.xf.docman.front.enums
+  global-config:
+    db-config:
+      id-type: INPUT #程序生成主键
+      logic-not-delete-value: 0 #未逻辑删除
+      logicDeleteValue: 1  #已逻辑删除
+app:
+  permission-app-code: man
+  static-resource-suffix:
+    - .js
+    - .css
+    - .html
+    - .png
+    - .gif
+    - .jpg
+    - .ttf
+    - .otf
+    - .eot
+    - .woff
+    - .svg
+  exclude-login-path-equals:
+    - /
+    - /other/logoutURL
+  exclude-login-path-start-with:
+    - /v2/
+    - /swagger-
+    - /webjars
+    - /error
+  self-domain: man-api.xf-docman.com
+  exclude-permission-path-equals:
+    - /other/logoutURL
+    - /other/currentPermissions

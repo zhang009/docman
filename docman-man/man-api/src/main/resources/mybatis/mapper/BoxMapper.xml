@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xf.docman.man.mapper.BoxMapper">
+    <select id="list" resultType="com.xf.docman.front.views.vo.box.BoxListOutVO">
+        select b.id,
+        b.created,
+        b.modified,
+        b.is_enable,
+        b.box_code,
+        b.department_id,
+        b.department_name,
+        b.doc_count,
+        b.vol_count,
+        b.page_count,
+        b.collating_date,
+        b.collating_staff_id,
+        b.collating_staff_name,
+        b.storage_place,
+        b.memo,
+        b.belong_type,
+        b.belong_state,
+        b.classfy_id,
+        b.classfy_name,
+        b.category_id
+        from t_box b
+        <where>
+            <if test="input.id!=null">
+                b.id=#{input.id}
+            </if>
+            <if test="input.storagePlace!=null">
+                and b.storage_place=#{input.storagePlace}
+            </if>
+            <if test="input.collatingStaffName!=null">
+                and b.collating_staff_name=#{input.collatingStaffName}
+            </if>
+            <if test="input.categoryId!=null and input.categoryId!=0">
+                and b.category_id=#{input.categoryId}
+            </if>
+        </where> order by b.created desc
+    </select>
+
+</mapper>

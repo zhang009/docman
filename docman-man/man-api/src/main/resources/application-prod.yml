@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/docman_man?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=GMT%2b8
+      username: root
+      password: my-secret-pw
+      initial-size: 1
+      min-idle: 1
+      max-active: 5
+  mvc:
+    log-request-details: false
+server:
+  port: 63400
+app:
+  self-domain: man-api.xf-docman.com
+xxl:
+  job:
+    admin:
+      addresses: http://job.xf-docman.com/job-plat
+    executor:
+      ip:
+      port: 9999
+      logpath: /data/applogs/xxl-job/jobhandler
+      appname: docman-man-job
+    accessToken:

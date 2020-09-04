@@ -1,0 +1,7 @@
+spring:
+  mvc:
+    log-request-details: false
+server:
+  port: 63400
+app:
+  self-domain: front-api-pre.xf-docman.com

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xf.docman.man.mapper.AttachmentMapper">
+    <update id="enable">
+        update t_attachment
+        set is_enable= true
+        where id = #{id}
+    </update>
+
+    <update id="disable">
+        update t_attachment
+        set is_enable= false
+        where id = #{id}
+    </update>
+
+    <select id="list" resultType="com.xf.docman.front.views.vo.attachment.AttachmentListOutVO">
+        select s.id,
+        s.file_name,
+        s.is_enable,
+        s.modified
+        from t_attachment s
+        <where>
+            <if test="input.id!=null">
+                s.id=#{input.id}
+            </if>
+            <if test="input.isEnable!=null">
+                and s.is_enable=#{input.isEnable}
+            </if>
+            <if test="input.fileName!=null and input.fileName!=''">
+                and s.file_name like concat('%', #{input.fileName}, '%')
+            </if>
+        </where> order by s.created desc
+    </select>
+    <select id="listAllEnable" resultType="com.xf.docman.front.views.vo.attachment.AttachmentListAllOutVO">
+        select *
+        from t_attachment
+        where is_enable = 1  order by created desc
+    </select>
+</mapper>
